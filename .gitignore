@@ -1,0 +1,8 @@
+# npm
+node_modules/*
+
+# lib
+lib/*
+
+# webpack bundle
+dist/*
