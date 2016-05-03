@@ -1,11 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Draggable from './draggable';
+import MainContainer from './main-container';
 
-var initialPos = {x: 0, y: 0};
-var initialValue = 'test';
+// let initialPos = {x: 0, y: 0};
+// let initialValue = 'test';
+
+// ReactDOM.render(
+//   <Draggable initialPos={initialPos} initialValue={initialValue}>
+//   </Draggable>,
+//   document.getElementById('app')
+// );
+
 
 ReactDOM.render(
-  <Draggable initialPos={initialPos} initialValue={initialValue}></Draggable>,
-  document.getElementById('app')
+    <MainContainer />,
+    document.getElementById('app')
 );
