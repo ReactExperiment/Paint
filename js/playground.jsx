@@ -1,15 +1,10 @@
 import React from 'react';
 import { ItemTypes } from './constants.js';
 import { DropTarget } from 'react-dnd';
+import Operation from './operation';
 
 const playgroundTarget = {
-	hover() {
-
-	},
-
-	drop() {
-
-	}
+	
 };
 
 function collect(connect, monitor) {
@@ -22,8 +17,15 @@ function collect(connect, monitor) {
 class Playground extends React.Component {
 	render() {
 		const { connectDropTarget, isOver } = this.props;
+		let ops = [];
+		for (let i = 0; i < this.props.operationList.length; i++) {
+			ops.push(<Operation key={i} name={i}/>);
+		}
+
 		return connectDropTarget(
-			<div>PG</div>
+			<div>
+				{ops}
+			</div>
 		);
 	}
 }
