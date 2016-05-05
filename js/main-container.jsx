@@ -1,10 +1,12 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 
-import PlaygroundContainer from './playground-container';
+import Playground from './playground';
 import OperationButtonList from './operation-button-list';
 
-export default class MainContainer extends React.Component {
+class MainContainer extends React.Component {
 	render() {
 		const operationList = this.props.operationList;
 
@@ -15,10 +17,12 @@ export default class MainContainer extends React.Component {
 						<OperationButtonList />
 					</Col>
 					<Col md={10} style={{height: '100%'}}>
-						<PlaygroundContainer style={{height: '100%'}} operationList={operationList} />
+						<Playground style={{height: '100%'}} operationList={operationList} />
 					</Col>
 				</Row>
 			</div>
 		);
 	}
 }
+
+export default DragDropContext(HTML5Backend)(MainContainer);

@@ -10,12 +10,14 @@ const operationSource = {
 	},
 
 	endDrag(props, monitor, component) {
-		let { x, y } = monitor.getSourceClientOffset();
-		if (component) {
-			component.setState({
-				x: x,
-				y: y
-			})
+		if (monitor.getSourceClientOffset()) {
+			let { x, y } = monitor.getSourceClientOffset();
+			if (component) {
+				component.setState({
+					x: x,
+					y: y
+				})
+			}
 		}
 		console.log('end');
 	}
