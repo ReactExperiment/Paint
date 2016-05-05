@@ -23,7 +23,7 @@ class Playground extends React.Component {
 		}
 
 		return connectDropTarget(
-			<div>
+			<div style={{display: 'inline-block'}}>
 				{ops}
 			</div>
 		);
