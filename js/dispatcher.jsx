@@ -16,6 +16,12 @@ export function observe(o) {
 
 export function addOperation() {
 	// Do sth.
-	operationList.push(count++);
+	operationList.push({ x:210, y:10 });
+	emitChange();
+	count++;
+}
+
+export function moveOperation(index, pos) {
+	operationList[index]=pos;
 	emitChange();
 }

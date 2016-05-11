@@ -9,7 +9,7 @@ module.exports = {
     },
     module: {
         loaders: [{
-            test: /\.jsx?/,
+            test: /\.jsx?$/,
             loader: 'babel',
             exclude: [/node_modules/]
         }]
