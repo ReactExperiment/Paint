@@ -22,9 +22,12 @@
     "babel-preset-react": "^6.5.0",
     "react": "^15.0.1",
     "react-bootstrap": "^0.29.3",
+    "react-contextmenu": "^1.5.0",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.0.1",
+    "react-modal": "^1.2.1",
+    "react-shapes": "^0.1.0",
     "webpack": "^1.13.0"
   }
 }

@@ -3,9 +3,12 @@ import { ItemTypes } from './constants.js';
 import { DropTarget } from 'react-dnd';
 import Operation from './operation';
 import Link from './link';
+import OperationContextMenu from './operationContextMenu';
 
 const playgroundTarget = {
-	
+	drop() {
+		console.log("pg");
+	}
 };
 
 function collect(connect, monitor) {
@@ -26,16 +29,15 @@ class Playground extends React.Component {
 
 		// let links = [];
 		let link = null;
-		console.log("test");
-		console.log(opList);
 		if (opList.length >= 2) {
 			link = <Link start={{ x:opList[0].x, y:opList[0].y }} end={{ x:opList[1].x, y:opList[1].y }} />;
 		}
 
 		return connectDropTarget(
-			<div style={{display: 'inline-block', height: '0', width: '0'}}>
+			<div style={{display: 'inline-block', height: 0, width: 0}}>
 				{ops}
 				{link}
+				<OperationContextMenu />
 			</div>
 		);
 	}

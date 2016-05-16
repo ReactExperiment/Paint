@@ -13,10 +13,10 @@ class MainContainer extends React.Component {
 		return (
 			<div style={{height: '100%'}}>
 				<Row style={{height: '100%'}}>
-					<Col md={2} style={{height: '100%', borderRight: 'thick solid #444444'}}>
+					<Col md={2} sm={2} xs={2} style={{height: '100%', borderRight: 'thick solid #444444'}}>
 						<OperationButtonList />
 					</Col>
-					<Col md={10} style={{height: '100%'}}>
+					<Col md={10} sm={10} xs={10} style={{height: '100%', position: 'static'}}>
 						<Playground style={{height: '100%'}} operationList={operationList} />
 					</Col>
 				</Row>

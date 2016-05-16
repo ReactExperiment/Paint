@@ -1,17 +1,35 @@
 import React from 'react';
 import { Rectangle } from 'react-shapes';
 import { ItemTypes } from './constants';
-import { DragSource } from 'react-dnd';
+import { DragSource, DropTarget } from 'react-dnd';
 import { moveOperation } from './dispatcher';
+import { ContextMenuLayer } from 'react-contextmenu';
 
-const width = 60;
-const height = 36;
+const width = 50;
+const height = 30;
 const initialPosition = {
 	x: 210,
 	y: 10
 };
 
+/*******DropTarget Initialization*******/
+const operationTarget = {
+	drop() {
+		return {result: "success"};
+	},
+	hover() {
+		console.log("hover");
+	}
+};
 
+function targetCollect(connect, monitor) {
+	return {
+		connectDropTarget: connect.dropTarget(),
+		isOver: monitor.isOver()
+	};
+}
+
+/*******DragSource Initialization*******/
 const operationSource = {
 	beginDrag(props) {
 		console.log('begin');
@@ -33,7 +51,7 @@ const operationSource = {
 	}
 };
 
-function collect(connect, monitor) {
+function sourceCollect(connect, monitor) {
 	return {
 		connectDragSource: connect.dragSource(),
 		isDragging: monitor.isDragging(),
@@ -41,6 +59,7 @@ function collect(connect, monitor) {
 	};
 }
 
+/********Operation Class Defination*******/
 class Operation extends React.Component {
 	constructor(props) {
 		super(props);
@@ -48,11 +67,9 @@ class Operation extends React.Component {
 	}
 
 	render() {
-		const { connectDragSource, isDragging, getInitialClientOffset } = this.props;
+		const { connectDragSource, isDragging } = this.props;
 		const current = this.state ? false : true;
 		const { x, y } = current ? initialPosition : this.state;
-		console.log(this);
-
 		return connectDragSource(
 			// <div style={current ? {} : {
 			// 	position: 'fixed',
@@ -60,10 +77,11 @@ class Operation extends React.Component {
 			// 	left: x
 			// }}>
 			<div style={{
-				position: 'fixed',
+				paddingLeft: 0,
+				position: 'absolute',
+				zIndex: 10,
 				top: y,
-				left: x,
-				zIndex: 1
+				left: x
 			}}>
 				<Rectangle width={width} height={height} fill={{color:'#EEEEEE'}} stroke={{color:'#E65243'}} strokeWidth={3} />
 			</div>
@@ -76,4 +94,9 @@ Operation.propTypes = {
 	isDragging: React.PropTypes.bool.isRequired
 };
 
-export default DragSource(ItemTypes.OPERATION, operationSource, collect)(Operation);
+// Operation = ContextMenuLayer(ItemTypes.OPERATION)(Operation);
+Operation = DragSource(ItemTypes.OPERATION, operationSource, sourceCollect)(Operation);
+Operation = ContextMenuLayer(ItemTypes.OPERATION)(Operation);
+// Operation = DropTarget(ItemTypes.OPERATION, operationTarget, targetCollect)(Operation);
+
+export default Operation;

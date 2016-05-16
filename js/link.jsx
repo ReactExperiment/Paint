@@ -1,14 +1,3 @@
-// import React from 'react';
-// import Line from 'react-shapes';
-
-// export default class Link extends React.Component {
-//     render() {
-//         return (
-//             <Line x1={25} x2={350} y1={25} y2={350}  stroke={{color:'#E65243'}} strokeWidth={3} />
-//         );
-//     }
-// }
-
 import React from 'react';
 
 export default class Link extends React.Component {
@@ -24,7 +13,7 @@ export default class Link extends React.Component {
         const angle = Math.atan((end.y - start.y) / (end.x - start.x));
 
         const style = {
-            position: 'fixed',
+            position: 'absolute',
             transform: 'translate(' + (-210 + 30 + start.x - .5 * len * (1 - Math.cos(angle))) + 'px, ' + (-10 + 18 + start.y + .5 * len * Math.sin(angle)) + 'px) rotate(' + angle + 'rad)',
             width: len + 'px',
             height: '0px',
