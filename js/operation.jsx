@@ -8,7 +8,7 @@ import { ContextMenuLayer } from 'react-contextmenu';
 const width = 50;
 const height = 30;
 const initialPosition = {
-	x: 210,
+	x: 200,
 	y: 10
 };
 
@@ -81,7 +81,7 @@ class Operation extends React.Component {
 				position: 'absolute',
 				zIndex: 10,
 				top: y,
-				left: x
+				left: x - 198
 			}}>
 				<Rectangle width={width} height={height} fill={{color:'#EEEEEE'}} stroke={{color:'#E65243'}} strokeWidth={3} />
 			</div>

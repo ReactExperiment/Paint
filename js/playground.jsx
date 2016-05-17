@@ -34,7 +34,7 @@ class Playground extends React.Component {
 		}
 
 		return connectDropTarget(
-			<div style={{display: 'inline-block', height: 0, width: 0}}>
+			<div style={{display: 'inline-block', height: 0, width: 0, position: 'absolute'}}>
 				{ops}
 				{link}
 				<OperationContextMenu />
