@@ -1,11 +1,11 @@
 import React from 'react';
-import { ItemTypes } from './constants';
+import { ItemTypes, ConfigureConsts } from './constants';
 import { DragSource, DropTarget } from 'react-dnd';
 import { moveOperation } from './dispatcher';
 import { ContextMenuLayer } from 'react-contextmenu';
 
-const width = 100;
-const height = 50;
+const width = ConfigureConsts.WIDTH;
+const height = ConfigureConsts.HEIGHT;
 const initialPosition = {
 	x: window.innerWidth/6,
 	y: 10
@@ -90,7 +90,9 @@ class Operation extends React.Component {
 					backgroundColor: '#EEEEEE',
 					textAlign: 'center',
 					lineHeight: height + 'px'
-				}}>Operation</div>
+				}}>
+					<span>Operation</span>
+				</div>
 			</div>
 		);
 	}

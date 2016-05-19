@@ -1,7 +1,8 @@
 import React from 'react';
+import { ConfigureConsts } from './constants';
 
-const width = 80;
-const height = 50;
+const width = ConfigureConsts.WIDTH;
+const height = ConfigureConsts.HEIGHT;
 
 export default class Link extends React.Component {
     render() {
