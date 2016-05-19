@@ -1,12 +1,11 @@
 import React from 'react';
-import { Rectangle } from 'react-shapes';
 import { ItemTypes } from './constants';
 import { DragSource, DropTarget } from 'react-dnd';
 import { moveOperation } from './dispatcher';
 import { ContextMenuLayer } from 'react-contextmenu';
 
-const width = 50;
-const height = 30;
+const width = 100;
+const height = 50;
 const initialPosition = {
 	x: window.innerWidth/6,
 	y: 10
@@ -84,7 +83,14 @@ class Operation extends React.Component {
 				top: y,
 				left: x - windowWidth / 6
 			}}>
-				<Rectangle width={width} height={height} fill={{color:'#EEEEEE'}} stroke={{color:'#E65243'}} strokeWidth={3} />
+				<div style={{
+					width: width + 'px',
+					height: height + 'px',
+					border: 'solid 3px #E65243',
+					backgroundColor: '#EEEEEE',
+					textAlign: 'center',
+					lineHeight: height + 'px'
+				}}>Operation</div>
 			</div>
 		);
 	}

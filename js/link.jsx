@@ -1,5 +1,8 @@
 import React from 'react';
 
+const width = 80;
+const height = 50;
+
 export default class Link extends React.Component {
     render() {
         let start = this.props.start;
@@ -13,7 +16,7 @@ export default class Link extends React.Component {
 
         const style = {
             position: 'absolute',
-            transform: 'translate(' + (start.x - .5 * len * (1 - Math.cos(angle)) - window.innerWidth/6 + 25) + 'px, ' + (15 + start.y + .5 * len * Math.sin(angle)) + 'px) rotate(' + angle + 'rad)',
+            transform: 'translate(' + (start.x - .5 * len * (1 - Math.cos(angle)) - window.innerWidth/6 + width/2) + 'px, ' + (height/2 + start.y + .5 * len * Math.sin(angle)) + 'px) rotate(' + angle + 'rad)',
             width: len + 'px',
             height: '0px',
             borderBottom: this.props.style || '5px solid #ffb81c',
