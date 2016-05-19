@@ -28,15 +28,17 @@ class Playground extends React.Component {
 		}
 
 		// let links = [];
-		let link = null;
+		let links = [];
 		if (opList.length >= 2) {
-			link = <Link start={{ x:opList[0].x, y:opList[0].y }} end={{ x:opList[1].x, y:opList[1].y }} />;
+			for (let i = 0; i < opList.length - 1; i++) {
+				links.push(<Link start={{ x:opList[i].x, y:opList[i].y }} end={{ x:opList[i + 1].x, y:opList[i + 1].y }} />);
+			}
 		}
 
 		return connectDropTarget(
 			<div style={{display: 'inline-block', height: 0, width: 0, position: 'absolute'}}>
 				{ops}
-				{link}
+				{links}
 				<OperationContextMenu />
 			</div>
 		);
