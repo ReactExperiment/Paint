@@ -24,14 +24,14 @@ class Playground extends React.Component {
 		const opList = this.props.operationList;
 		let ops = [];
 		for (let i = 0; i < opList.length; i++) {
-			ops.push(<Operation key={i} name={i} />);
+			ops.push(<Operation opParams={{ opType: opList[i].opType, opColor: opList[i].opColor }} key={i} name={i} />);
 		}
 
 		// let links = [];
 		let links = [];
 		if (opList.length >= 2) {
 			for (let i = 0; i < opList.length - 1; i++) {
-				links.push(<Link start={{ x:opList[i].x, y:opList[i].y }} end={{ x:opList[i + 1].x, y:opList[i + 1].y }} />);
+				links.push(<Link key={i} start={{ x:opList[i].x, y:opList[i].y }} end={{ x:opList[i + 1].x, y:opList[i + 1].y }} />);
 			}
 		}
 

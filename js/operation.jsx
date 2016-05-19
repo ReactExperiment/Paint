@@ -63,6 +63,7 @@ class Operation extends React.Component {
 	constructor(props) {
 		super(props);
 	    this.state = initialPosition;
+	    this.opParams = this.props.opParams;
 	}
 
 	render() {
@@ -86,12 +87,15 @@ class Operation extends React.Component {
 				<div style={{
 					width: width + 'px',
 					height: height + 'px',
-					border: 'solid 3px #E65243',
-					backgroundColor: '#EEEEEE',
+					border: 'solid 1px #E65243',
+					borderRadius: '5px',
+					// ":hover": { backgroundColor: 'black' },
+					backgroundColor: this.opParams.opColor,
+					color: 'white',
 					textAlign: 'center',
 					lineHeight: height + 'px'
 				}}>
-					<span>Operation</span>
+					<span>{ this.opParams.opType }</span>
 				</div>
 			</div>
 		);

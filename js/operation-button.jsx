@@ -10,13 +10,13 @@ export default class OperationButton extends React.Component {
 	}
 
 	onClick(e) {
-		addOperation();
+		addOperation(this.props.opType, this.props.opColor);
 		console.log("add op!");
 	}
 
 	render() {
 		return (
-			<Button bsStyle="success" block onClick={this.onClick}>OpBtn</Button>
+			<Button style={{ backgroundColor: this.props.opColor, color: 'white' }} block onClick={this.onClick}>{this.props.opType}</Button>
 		);
 	}
 }

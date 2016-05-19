@@ -14,9 +14,9 @@ export function observe(o) {
 	emitChange();
 }
 
-export function addOperation() {
+export function addOperation(opType, opColor) {
 	// Do sth.
-	operationList.push({ x:210, y:10 });
+	operationList.push({ x:210, y:10, opType:opType, opColor:opColor });
 	emitChange();
 	count++;
 }
