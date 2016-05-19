@@ -8,7 +8,7 @@ import { ContextMenuLayer } from 'react-contextmenu';
 const width = 50;
 const height = 30;
 const initialPosition = {
-	x: 200,
+	x: window.innerWidth/6,
 	y: 10
 };
 
@@ -70,6 +70,7 @@ class Operation extends React.Component {
 		const { connectDragSource, isDragging } = this.props;
 		const current = this.state ? false : true;
 		const { x, y } = current ? initialPosition : this.state;
+		const windowWidth = window.innerWidth;
 		return connectDragSource(
 			// <div style={current ? {} : {
 			// 	position: 'fixed',
@@ -77,11 +78,11 @@ class Operation extends React.Component {
 			// 	left: x
 			// }}>
 			<div style={{
-				paddingLeft: 0,
+				// paddingLeft: 0,
 				position: 'absolute',
 				zIndex: 10,
 				top: y,
-				left: x - 198
+				left: x - windowWidth / 6
 			}}>
 				<Rectangle width={width} height={height} fill={{color:'#EEEEEE'}} stroke={{color:'#E65243'}} strokeWidth={3} />
 			</div>
