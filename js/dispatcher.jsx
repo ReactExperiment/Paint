@@ -27,9 +27,25 @@ export function moveOperation(index, pos) {
 	emitChange();
 }
 
-export function addLink(index_a, index_b) {
+function canAddLink(index_a, index_b) {
 	if (index_a != index_b) {
+		for (let i = 0; i < linkList.length; i++) {
+			let a = linkList[i].a;
+			let b = linkList[i].b;
+			if (a === index_a && b === index_b) {
+				return false;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
+export function addLink(index_a, index_b) {
+	if (canAddLink(index_a, index_b)) {
 		linkList.push({ a: index_a, b: index_b });
 		emitChange();
+	} else {
+		console.log("Cannot add link!");
 	}
 }
