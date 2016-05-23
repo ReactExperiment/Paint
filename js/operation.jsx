@@ -80,7 +80,7 @@ class Operation extends React.Component {
 			<div style={{
 				// paddingLeft: 0,
 				position: 'absolute',
-				zIndex: 10,
+				zIndex: 0,
 				top: y,
 				left: x - windowWidth / 6
 			}}>
