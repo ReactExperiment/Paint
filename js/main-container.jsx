@@ -9,6 +9,7 @@ import OperationButtonList from './operation-button-list';
 class MainContainer extends React.Component {
 	render() {
 		const operationList = this.props.operationList;
+		const linkList = this.props.linkList;
 
 		return (
 			<div style={{height: '100%'}}>
@@ -17,7 +18,7 @@ class MainContainer extends React.Component {
 						<OperationButtonList />
 					</Col>
 					<Col md={10} sm={10} xs={10} style={{height: '100%', position: 'static'}}>
-						<Playground style={{height: '100%'}} operationList={operationList} />
+						<Playground style={{height: '100%'}} operationList={operationList} linkList={linkList} />
 					</Col>
 				</Row>
 			</div>

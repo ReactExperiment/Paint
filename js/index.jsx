@@ -5,8 +5,8 @@ import { observe } from './dispatcher';
 import MainContainer from './main-container';
 
 observe(
-    (operationList) => ReactDOM.render(
-        <MainContainer operationList={operationList}></MainContainer>,
+    (operationList, linkList) => ReactDOM.render(
+        <MainContainer operationList={operationList} linkList={linkList}></MainContainer>,
         document.getElementById('app')
     )
 )

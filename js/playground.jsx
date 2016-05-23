@@ -7,7 +7,7 @@ import OperationContextMenu from './operationContextMenu';
 
 const playgroundTarget = {
 	drop() {
-		console.log("pg");
+		
 	}
 };
 
@@ -21,18 +21,25 @@ function collect(connect, monitor) {
 class Playground extends React.Component {
 	render() {
 		const { connectDropTarget, isOver } = this.props;
-		const opList = this.props.operationList;
+		const operationList = this.props.operationList;
+		const linkList = this.props.linkList;
+
 		let ops = [];
-		for (let i = 0; i < opList.length; i++) {
-			ops.push(<Operation opParams={{ opType: opList[i].opType, opColor: opList[i].opColor }} key={i} name={i} />);
+		for (let i = 0; i < operationList.length; i++) {
+			ops.push(<Operation opParams={{ opType: operationList[i].opType, opColor: operationList[i].opColor }} key={i} name={i} />);
 		}
 
 		// let links = [];
 		let links = [];
-		if (opList.length >= 2) {
-			for (let i = 0; i < opList.length - 1; i++) {
-				links.push(<Link key={i} start={{ x:opList[i].x, y:opList[i].y }} end={{ x:opList[i + 1].x, y:opList[i + 1].y }} />);
-			}
+		// if (opList.length >= 2) {
+		// 	for (let i = 0; i < opList.length - 1; i++) {
+		// 		links.push(<Link key={i} start={{ x:operationList[i].x, y:operationList[i].y }} end={{ x:operationList[i + 1].x, y:operationList[i + 1].y }} />);
+		// 	}
+		// }
+		for (let i = 0; i < linkList.length; i++) {
+			let a = linkList[i].a;
+			let b = linkList[i].b;
+			links.push(<Link key={i} start={{ x:operationList[a].x, y:operationList[a].y }} end={{ x:operationList[b].x, y:operationList[b].y }} />);
 		}
 
 		return connectDropTarget(

@@ -1,9 +1,10 @@
 let operationList = [];
+let linkList = [];
 let count = 0;
 let observer = null;
 
 function emitChange() {
-	observer(operationList);
+	observer(operationList, linkList);
 }
 
 export function observe(o) {
@@ -24,4 +25,11 @@ export function addOperation(opType, opColor) {
 export function moveOperation(index, pos) {
 	operationList[index]=pos;
 	emitChange();
+}
+
+export function addLink(index_a, index_b) {
+	if (index_a != index_b) {
+		linkList.push({ a: index_a, b: index_b });
+		emitChange();
+	}
 }

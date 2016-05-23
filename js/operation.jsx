@@ -1,7 +1,7 @@
 import React from 'react';
 import { ItemTypes, ConfigureConsts } from './constants';
 import { DragSource, DropTarget } from 'react-dnd';
-import { moveOperation } from './dispatcher';
+import { moveOperation, addLink } from './dispatcher';
 import { ContextMenuLayer } from 'react-contextmenu';
 
 const width = ConfigureConsts.WIDTH;
@@ -13,11 +13,8 @@ const initialPosition = {
 
 /*******DropTarget Initialization*******/
 const operationTarget = {
-	drop() {
-		return {result: "success"};
-	},
-	hover() {
-		console.log("hover");
+	drop(props, monitor, component) {
+		return { component: component };
 	}
 };
 
@@ -30,22 +27,28 @@ function targetCollect(connect, monitor) {
 
 /*******DragSource Initialization*******/
 const operationSource = {
-	beginDrag(props) {
+	beginDrag(props, monitor, component) {
 		console.log('begin');
-		return {};
+		return { component: component };
 	},
 
 	endDrag(props, monitor, component) {
-		if (monitor.getSourceClientOffset()) {
-			let { x, y } = monitor.getSourceClientOffset();
-			if (component) {
-				component.setState({
-					x: x,
-					y: y
-				});
+		if (monitor.didDrop()) {
+			let index_a = component.props.name;
+			let index_b = monitor.getDropResult().component.props.name;
+			addLink(index_a, index_b);
+		} else {
+			if (monitor.getSourceClientOffset()) {
+				let { x, y } = monitor.getSourceClientOffset();
+				if (component) {
+					component.setState({
+						x: x,
+						y: y
+					});
+				}
 			}
+			moveOperation(component.props.name, component.state);
 		}
-		moveOperation(component.props.name, component.state);
 		console.log('end');
 	}
 };
@@ -67,16 +70,17 @@ class Operation extends React.Component {
 	}
 
 	render() {
-		const { connectDragSource, isDragging } = this.props;
+		const { connectDragSource, connectDropTarget, isDragging } = this.props;
 		const current = this.state ? false : true;
 		const { x, y } = current ? initialPosition : this.state;
 		const windowWidth = window.innerWidth;
-		return connectDragSource(
+		// return connectDragSource(
 			// <div style={current ? {} : {
 			// 	position: 'fixed',
 			// 	top: y,
 			// 	left: x
 			// }}>
+		return connectDragSource(connectDropTarget(
 			<div style={{
 				// paddingLeft: 0,
 				position: 'absolute',
@@ -98,7 +102,7 @@ class Operation extends React.Component {
 					<span>{ this.opParams.opType }</span>
 				</div>
 			</div>
-		);
+		));
 	}
 }
 
@@ -109,7 +113,7 @@ Operation.propTypes = {
 
 // Operation = ContextMenuLayer(ItemTypes.OPERATION)(Operation);
 Operation = DragSource(ItemTypes.OPERATION, operationSource, sourceCollect)(Operation);
+Operation = DropTarget(ItemTypes.OPERATION, operationTarget, targetCollect)(Operation);
 Operation = ContextMenuLayer(ItemTypes.OPERATION)(Operation);
-// Operation = DropTarget(ItemTypes.OPERATION, operationTarget, targetCollect)(Operation);
 
 export default Operation;
