@@ -20,7 +20,7 @@ export default class Link extends React.Component {
             transform: 'translate(' + (start.x - .5 * len * (1 - Math.cos(angle)) - window.innerWidth/6 + width/2) + 'px, ' + (height/2 + start.y + .5 * len * Math.sin(angle)) + 'px) rotate(' + angle + 'rad)',
             width: len + 'px',
             height: '0px',
-            borderBottom: this.props.style || '5px solid #ffb81c',
+            borderBottom: this.props.style || '5px solid #D32F2F',
             zIndex: -1
         };
         //'translate(' + (start.x - .5 * len * (1 - Math.cos(angle))) + 'px, ' + (start.y + .5 * len * Math.sin(angle)) + 'px) 

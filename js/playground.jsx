@@ -3,7 +3,6 @@ import { ItemTypes } from './constants.js';
 import { DropTarget } from 'react-dnd';
 import Operation from './operation';
 import Link from './link';
-import OperationContextMenu from './operationContextMenu';
 
 const playgroundTarget = {
 	drop() {
@@ -23,7 +22,6 @@ class Playground extends React.Component {
 		const { connectDropTarget, isOver } = this.props;
 		const operationList = this.props.operationList;
 		const linkList = this.props.linkList;
-
 		let ops = [];
 		for (let i = 0; i < operationList.length; i++) {
 			ops.push(<Operation opParams={{ opType: operationList[i].opType, opColor: operationList[i].opColor }} key={i} name={i} />);
@@ -46,7 +44,6 @@ class Playground extends React.Component {
 			<div style={{display: 'inline-block', height: 0, width: 0, position: 'absolute'}}>
 				{ops}
 				{links}
-				<OperationContextMenu />
 			</div>
 		);
 	}

@@ -4,16 +4,17 @@ import { ContextMenu, MenuItem } from "react-contextmenu";
 import { ItemTypes } from "./constants"
 
 import Modal from "react-modal";
+import { Row, Col } from "react-bootstrap";
 
 const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
+	content : {
+		top: '50%',
+		left: '50%',
+		right: 'auto',
+		bottom: 'auto',
+		marginRight: '-50%',
+		transform: 'translate(-50%, -50%)'
+	}
 };
 
 export default class OperationContextMenu extends React.Component {
@@ -23,13 +24,17 @@ export default class OperationContextMenu extends React.Component {
 
 		this.openPropertiesDialog = this.openPropertiesDialog.bind(this);
 		this.closePropertiesDialog = this.closePropertiesDialog.bind(this);
+		this.editName = this.editName.bind(this);
 	}
 
 	render() {
+		const component = this.props.component;
+		console.log(component);
+
 		return (
 			<div>
 				<ContextMenu identifier={ItemTypes.OPERATION}>
-					<MenuItem onClick={this.deleteOperation}>
+					<MenuItem data={{test: 'test'}} onClick={this.deleteOperation}>
 						Delete
 					</MenuItem>
 					<MenuItem onClick={this.openPropertiesDialog}>
@@ -42,8 +47,16 @@ export default class OperationContextMenu extends React.Component {
 					onRequestClose={this.closePropertiesDialog}
 					style={customStyles}
 				>
-					<h2>Test</h2>
-					<button onClick={this.closePropertiesDialog}>Close</button>
+					<Row>
+						<Col sm={2}>
+							Name
+						</Col>
+						<Col sm={10}>
+							<input ref="nameInput" type="text" placeholder="Name" defaultValue={ component.state.opName } />
+						</Col>
+					</Row>
+					<button onClick={ () => this.editName(component) }>OK</button>
+					<button onClick={ this.closePropertiesDialog }>Cancel</button>
 				</Modal>
 	        </div>
         )
@@ -54,8 +67,14 @@ export default class OperationContextMenu extends React.Component {
 		this.setState({modalIsOpen: true});
 	}
 
+	editName(component) {
+		component.editName(this.refs.nameInput.value);
+		this.setState({modalIsOpen: false});
+	}
+
 	deleteOperation(event, data) {
 		console.log("delete");
+		console.log(data);
 	}
 
 	afterOpenModal() {

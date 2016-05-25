@@ -2,6 +2,7 @@ import React from 'react';
 import { ItemTypes, ConfigureConsts } from './constants';
 import { DragSource, DropTarget } from 'react-dnd';
 import { moveOperation, addLink } from './dispatcher';
+import OperationContextMenu from './operation-context-menu';
 import { ContextMenuLayer } from 'react-contextmenu';
 
 const width = ConfigureConsts.WIDTH;
@@ -66,11 +67,18 @@ class Operation extends React.Component {
 	constructor(props) {
 		super(props);
 	    this.state = initialPosition;
-	    this.opParams = this.props.opParams;
+	    this.state.opName = props.name;
+
+	    this.editName = this.editName.bind(this);
+	}
+
+	editName(name) {
+		console.log(name);
+		this.setState({opName: name});
 	}
 
 	render() {
-		const { connectDragSource, connectDropTarget, isDragging } = this.props;
+		const { connectDragSource, connectDropTarget, isDragging, opParams } = this.props;
 		const current = this.state ? false : true;
 		const { x, y } = current ? initialPosition : this.state;
 		const windowWidth = window.innerWidth;
@@ -80,33 +88,37 @@ class Operation extends React.Component {
 			// 	top: y,
 			// 	left: x
 			// }}>
-		return connectDragSource(connectDropTarget(
-			<div style={{
-				// paddingLeft: 0,
-				position: 'absolute',
-				zIndex: 0,
-				top: y,
-				left: x - windowWidth / 6
-			}}>
-				<div style={{
-					width: width + 'px',
-					height: height + 'px',
-					border: 'solid 1px #E65243',
-					borderRadius: '5px',
-					// ":hover": { backgroundColor: 'black' },
-					backgroundColor: this.opParams.opColor,
-					color: 'white',
-					textAlign: 'center',
-					lineHeight: height + 'px'
-				}}>
-					<span>{ this.opParams.opType }</span>
-				</div>
-			</div>
-		));
+		return (connectDropTarget(connectDragSource(
+					<div style={{
+						// paddingLeft: 0,
+						position: 'absolute',
+						zIndex: 0,
+						top: y,
+						left: x - windowWidth / 6
+					}}>
+						<div style={{
+							width: width + 'px',
+							height: height + 'px',
+							borderRadius: '5px',
+							// ":hover": { backgroundColor: 'black' },
+							backgroundColor: opParams.opColor,
+							color: 'white',
+							textAlign: 'center',
+							lineHeight: height + 'px'
+						}}>
+							<span>{ this.state.opName }</span>
+						</div>
+						<OperationContextMenu component={this} />
+					</div>
+				)));
 	}
 }
 
 Operation.propTypes = {
+	opParams: React.PropTypes.shape({
+		opType: React.PropTypes.string.isRequired,
+		opColor: React.PropTypes.string.isRequired
+	}),
 	connectDragSource: React.PropTypes.func.isRequired,
 	isDragging: React.PropTypes.bool.isRequired
 };

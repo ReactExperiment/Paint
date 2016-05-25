@@ -10,7 +10,6 @@ class MainContainer extends React.Component {
 	render() {
 		const operationList = this.props.operationList;
 		const linkList = this.props.linkList;
-
 		return (
 			<div style={{height: '100%'}}>
 				<Row style={{height: '100%'}}>

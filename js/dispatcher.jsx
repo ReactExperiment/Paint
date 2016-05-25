@@ -23,7 +23,8 @@ export function addOperation(opType, opColor) {
 }
 
 export function moveOperation(index, pos) {
-	operationList[index]=pos;
+	operationList[index].x=pos.x;
+	operationList[index].y=pos.y;
 	emitChange();
 }
 
