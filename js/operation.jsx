@@ -73,7 +73,6 @@ class Operation extends React.Component {
 	}
 
 	editName(name) {
-		console.log(name);
 		this.setState({opName: name});
 	}
 
@@ -88,7 +87,7 @@ class Operation extends React.Component {
 			// 	top: y,
 			// 	left: x
 			// }}>
-		return (connectDropTarget(connectDragSource(
+		return 	(connectDropTarget(connectDragSource(
 					<div style={{
 						// paddingLeft: 0,
 						position: 'absolute',
@@ -108,7 +107,6 @@ class Operation extends React.Component {
 						}}>
 							<span>{ this.state.opName }</span>
 						</div>
-						<OperationContextMenu component={this} />
 					</div>
 				)));
 	}
@@ -126,6 +124,6 @@ Operation.propTypes = {
 // Operation = ContextMenuLayer(ItemTypes.OPERATION)(Operation);
 Operation = DragSource(ItemTypes.OPERATION, operationSource, sourceCollect)(Operation);
 Operation = DropTarget(ItemTypes.OPERATION, operationTarget, targetCollect)(Operation);
-Operation = ContextMenuLayer(ItemTypes.OPERATION)(Operation);
+Operation = ContextMenuLayer(ItemTypes.OPERATION, (props) => ({ opParams: props.opParams }))(Operation);
 
 export default Operation;

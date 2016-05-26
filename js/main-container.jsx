@@ -5,6 +5,7 @@ import { DragDropContext } from 'react-dnd';
 
 import Playground from './playground';
 import OperationButtonList from './operation-button-list';
+import OperationContextMenu from './operation-context-menu';
 
 class MainContainer extends React.Component {
 	render() {
@@ -20,6 +21,7 @@ class MainContainer extends React.Component {
 						<Playground style={{height: '100%'}} operationList={operationList} linkList={linkList} />
 					</Col>
 				</Row>
+				<OperationContextMenu />
 			</div>
 		);
 	}

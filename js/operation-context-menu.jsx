@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ContextMenu, MenuItem } from "react-contextmenu";
+import { ContextMenu, MenuItem, connect } from "react-contextmenu";
 import { ItemTypes } from "./constants"
 
 import Modal from "react-modal";
@@ -17,7 +17,7 @@ const customStyles = {
 	}
 };
 
-export default class OperationContextMenu extends React.Component {
+class OperationContextMenu extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {modalIsOpen: false};
@@ -28,8 +28,10 @@ export default class OperationContextMenu extends React.Component {
 	}
 
 	render() {
-		const component = this.props.component;
-		console.log(component);
+		// const component = this.props.component;
+		let { opParams } = this.props.item;
+		console.log(this.props.item);
+		console.log(opParams);
 
 		return (
 			<div>
@@ -52,10 +54,10 @@ export default class OperationContextMenu extends React.Component {
 							Name
 						</Col>
 						<Col sm={10}>
-							<input ref="nameInput" type="text" placeholder="Name" defaultValue={ component.state.opName } />
+							<input ref="nameInput" type="text" placeholder="Name" />
 						</Col>
 					</Row>
-					<button onClick={ () => this.editName(component) }>OK</button>
+					<button onClick={ () => this.editName() }>OK</button>
 					<button onClick={ this.closePropertiesDialog }>Cancel</button>
 				</Modal>
 	        </div>
@@ -68,7 +70,7 @@ export default class OperationContextMenu extends React.Component {
 	}
 
 	editName(component) {
-		component.editName(this.refs.nameInput.value);
+		// component.editName(this.refs.nameInput.value);
 		this.setState({modalIsOpen: false});
 	}
 
@@ -86,3 +88,6 @@ export default class OperationContextMenu extends React.Component {
 		this.setState({modalIsOpen: false});
 	}
 }
+
+
+export default connect(OperationContextMenu);
