@@ -24,7 +24,7 @@ class Playground extends React.Component {
 		const linkList = this.props.linkList;
 		let ops = [];
 		for (let i = 0; i < operationList.length; i++) {
-			ops.push(<Operation opParams={{ opType: operationList[i].opType, opColor: operationList[i].opColor, opName: operationList[i].opName, opIndex: i }} key={i} name={i} />);
+			ops.push(<Operation opParams={{ x: operationList[i].x, y: operationList[i].y, opType: operationList[i].opType, opColor: operationList[i].opColor, opName: operationList[i].opName, opIndex: operationList[i].opIndex }} key={i} name={i} />);
 		}
 
 		// let links = [];
@@ -35,9 +35,9 @@ class Playground extends React.Component {
 		// 	}
 		// }
 		for (let i = 0; i < linkList.length; i++) {
-			let a = linkList[i].a;
-			let b = linkList[i].b;
-			links.push(<Link key={i} start={{ x:operationList[a].x, y:operationList[a].y }} end={{ x:operationList[b].x, y:operationList[b].y }} />);
+			let startOp = operationList.find((op) => (op.opIndex === linkList[i].a));
+			let endOp = operationList.find((op) => (op.opIndex === linkList[i].b));
+			links.push(<Link key={i} start={{ x:startOp.x, y:startOp.y }} end={{ x:endOp.x, y:endOp.y }} />);
 		}
 
 		return connectDropTarget(

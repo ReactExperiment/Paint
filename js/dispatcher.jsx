@@ -17,33 +17,26 @@ export function observe(o) {
 
 export function addOperation(opType, opColor) {
 	// Do sth.
-	operationList.push({ x:210, y:10, opType:opType, opColor:opColor, opName:count });
+	operationList.push({ x:210, y:10, opType:opType, opColor:opColor, opName:"New", opIndex:count });
 	emitChange();
 	count++;
 }
 
-export function moveOperation(index, pos) {
-	operationList[index].x=pos.x;
-	operationList[index].y=pos.y;
+export function moveOperation(index, newX, newY) {
+	operationList = operationList.map((op) => (op.opIndex === index ? { ...op, x: newX, y: newY } : op));
 	emitChange();
 }
 
 export function changeOperationName(index, newOpName) {
 	operationList[index].opName = newOpName;
-	console.log(newOpName);
+	operationList = operationList.map((op) => (op.opIndex === index ? { ...op, opName: newOpName } : op));
 	emitChange();
 }
 
 function canAddLink(index_a, index_b) {
-	if (index_a != index_b) {
-		for (let i = 0; i < linkList.length; i++) {
-			let a = linkList[i].a;
-			let b = linkList[i].b;
-			if (a === index_a && b === index_b) {
-				return false;
-			}
-		}
-		return true;
+	if (index_a !== index_b) {
+		let filtered = linkList.filter((link) => (link.a === index_a && link.b === index_b));
+		return filtered.length === 0;
 	}
 	return false;
 }
@@ -55,4 +48,10 @@ export function addLink(index_a, index_b) {
 	} else {
 		console.log("Cannot add link!");
 	}
+}
+
+export function deleteOperation(index) {
+	linkList = linkList.filter((link) => (link.a !== index && link.b !== index));
+	operationList = operationList.filter((op) => (op.opIndex !== index));
+	emitChange();
 }

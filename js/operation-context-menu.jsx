@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ContextMenu, MenuItem, connect } from "react-contextmenu";
 import { ItemTypes } from "./constants";
-import { changeOperationName } from "./dispatcher";
+import { changeOperationName, deleteOperation } from "./dispatcher";
 
 import Modal from "react-modal";
 import { Row, Col } from "react-bootstrap";
@@ -35,7 +35,7 @@ class OperationContextMenu extends React.Component {
 		return (
 			<div>
 				<ContextMenu identifier={ItemTypes.OPERATION}>
-					<MenuItem data={{test: 'test'}} onClick={this.deleteOperation}>
+					<MenuItem onClick={this.deleteThisOperation}>
 						Delete
 					</MenuItem>
 					<MenuItem data={ opParams } onClick={this.openPropertiesDialog}>
@@ -76,9 +76,9 @@ class OperationContextMenu extends React.Component {
 		this.setState({modalIsOpen: false});
 	}
 
-	deleteOperation(event, data) {
+	deleteThisOperation(event, data) {
 		console.log("delete");
-		console.log(data);
+		deleteOperation(data.opParams.opIndex);
 	}
 
 	afterOpenModal() {

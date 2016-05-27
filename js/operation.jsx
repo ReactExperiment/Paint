@@ -35,8 +35,8 @@ const operationSource = {
 
 	endDrag(props, monitor, component) {
 		if (monitor.didDrop()) {
-			let index_a = component.props.name;
-			let index_b = monitor.getDropResult().component.props.name;
+			let index_a = component.props.opParams.opIndex;
+			let index_b = monitor.getDropResult().component.props.opParams.opIndex;
 			addLink(index_a, index_b);
 		} else {
 			if (monitor.getSourceClientOffset()) {
@@ -47,8 +47,8 @@ const operationSource = {
 						y: y
 					});
 				}
+				moveOperation(component.props.opParams.opIndex, x, y);
 			}
-			moveOperation(component.props.name, component.state);
 		}
 		console.log('end');
 	}
@@ -67,19 +67,13 @@ class Operation extends React.Component {
 	constructor(props) {
 		super(props);
 	    this.state = initialPosition;
-	    this.state.opName = props.name;
-
-	    this.editName = this.editName.bind(this);
-	}
-
-	editName(name) {
-		this.setState({opName: name});
 	}
 
 	render() {
 		const { connectDragSource, connectDropTarget, isDragging, opParams } = this.props;
-		const current = this.state ? false : true;
-		const { x, y } = current ? initialPosition : this.state;
+		// const current = this.state ? false : true;
+		// const { x, y } = current ? initialPosition : this.state;
+		const { x, y } = opParams;
 		const windowWidth = window.innerWidth;
 		// return connectDragSource(
 			// <div style={current ? {} : {
