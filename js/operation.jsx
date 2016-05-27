@@ -105,7 +105,7 @@ class Operation extends React.Component {
 							textAlign: 'center',
 							lineHeight: height + 'px'
 						}}>
-							<span>{ this.state.opName }</span>
+							<span>{ opParams.opName }</span>
 						</div>
 					</div>
 				)));

@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { ContextMenu, MenuItem, connect } from "react-contextmenu";
-import { ItemTypes } from "./constants"
+import { ItemTypes } from "./constants";
+import { changeOperationName } from "./dispatcher";
 
 import Modal from "react-modal";
 import { Row, Col } from "react-bootstrap";
@@ -29,9 +30,7 @@ class OperationContextMenu extends React.Component {
 
 	render() {
 		// const component = this.props.component;
-		let { opParams } = this.props.item;
-		console.log(this.props.item);
-		console.log(opParams);
+		const { opParams } = this.props.item;
 
 		return (
 			<div>
@@ -39,7 +38,7 @@ class OperationContextMenu extends React.Component {
 					<MenuItem data={{test: 'test'}} onClick={this.deleteOperation}>
 						Delete
 					</MenuItem>
-					<MenuItem onClick={this.openPropertiesDialog}>
+					<MenuItem data={ opParams } onClick={this.openPropertiesDialog}>
 						Properties
 					</MenuItem>
 		        </ContextMenu>
@@ -54,10 +53,10 @@ class OperationContextMenu extends React.Component {
 							Name
 						</Col>
 						<Col sm={10}>
-							<input ref="nameInput" type="text" placeholder="Name" />
+							<input ref="nameInput" type="text" placeholder="Name" defaultValue="" />
 						</Col>
 					</Row>
-					<button onClick={ () => this.editName() }>OK</button>
+					<button onClick={ () => this.editName(this.refs.nameInput.value) }>OK</button>
 					<button onClick={ this.closePropertiesDialog }>Cancel</button>
 				</Modal>
 	        </div>
@@ -65,12 +64,15 @@ class OperationContextMenu extends React.Component {
 	}
 
 	openPropertiesDialog(event, data) {
-		console.log("properties");
-		this.setState({modalIsOpen: true});
+		this.setState({modalIsOpen: true, opParams: data});
+		setTimeout(function() {
+			this.refs.nameInput.defaultValue = data.opName;
+		}.bind(this), 0);
 	}
 
-	editName(component) {
+	editName(newOpName) {
 		// component.editName(this.refs.nameInput.value);
+		changeOperationName(this.state.opParams.opIndex, newOpName);
 		this.setState({modalIsOpen: false});
 	}
 
@@ -80,7 +82,7 @@ class OperationContextMenu extends React.Component {
 	}
 
 	afterOpenModal() {
-		console.log("success");
+		
 	}
 
 	closePropertiesDialog() {

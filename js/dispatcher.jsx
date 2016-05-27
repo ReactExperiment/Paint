@@ -17,7 +17,7 @@ export function observe(o) {
 
 export function addOperation(opType, opColor) {
 	// Do sth.
-	operationList.push({ x:210, y:10, opType:opType, opColor:opColor });
+	operationList.push({ x:210, y:10, opType:opType, opColor:opColor, opName:count });
 	emitChange();
 	count++;
 }
@@ -25,6 +25,12 @@ export function addOperation(opType, opColor) {
 export function moveOperation(index, pos) {
 	operationList[index].x=pos.x;
 	operationList[index].y=pos.y;
+	emitChange();
+}
+
+export function changeOperationName(index, newOpName) {
+	operationList[index].opName = newOpName;
+	console.log(newOpName);
 	emitChange();
 }
 

@@ -24,7 +24,7 @@ class Playground extends React.Component {
 		const linkList = this.props.linkList;
 		let ops = [];
 		for (let i = 0; i < operationList.length; i++) {
-			ops.push(<Operation opParams={{ opType: operationList[i].opType, opColor: operationList[i].opColor }} key={i} name={i} />);
+			ops.push(<Operation opParams={{ opType: operationList[i].opType, opColor: operationList[i].opColor, opName: operationList[i].opName, opIndex: i }} key={i} name={i} />);
 		}
 
 		// let links = [];
